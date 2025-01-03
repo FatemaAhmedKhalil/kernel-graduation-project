@@ -5,16 +5,15 @@
 # Input: Path to the Wireshark PCAP file
 PCAP_FILE=$1  # capture input from terminal.
 cd "$PCAP_FILE" || exit
-touch "capture_file.pcap"
 
 # Function to extract information from the pcap file
 analyze_traffic() {
     # Use tshark or similar commands for packet analysis.
-    total_packets=$(tshark -r capture_file.pcap | wc -l) 
+    total_packets=$(tshark -r capture_file.pcap -T fields -e frame.number | wc -l) 
 
-    # Hint: Consider commands to count total packets, filter by protocols (HTTP, HTTPS/TLS),
-    http_packets=$(tshark -r capture_file.pcap -Y "http" | wc -l)
-    https_packets=$(tshark -r capture_file.pcap -Y "tls" | wc -l)
+    # Hint: Consider commands to count total packets, filter by protocols (HTTP, HTTPS/TLS).
+    http_packets=$(tshark -r capture_file.pcap -Y "http" -T fields -e frame.number | wc -l)
+    https_packets=$(tshark -r capture_file.pcap -Y "tls" -T fields -e frame.number | wc -l)
 
     # extract IP addresses, and generate summary statistics.
     top_source_ips=$(tshark -r capture_file.pcap -T fields -e ip.src | sort | uniq -c | sort -nr | head -n 5) 
