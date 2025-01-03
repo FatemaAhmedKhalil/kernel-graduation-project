@@ -9,7 +9,7 @@ total_packets=$(tshark -r capture_file.pcap -T fields -e frame.number | wc -l)
 - `tshark -r capture_file.pcap` Reads the capture_file.pcap File.
 - `-T fields` Makes tshark Output Only Specific Fields.
 - `-e frame.number` Packet Frame Number.
-- `wc -l` Word Count Counts the Number of Lines(Packets) in the Output.
+- `wc -l` word count Counts the Number of Lines(Packets) in the Output.
 
 ```bash
 # Hint: Consider commands to count total packets, filter by protocols (HTTP, HTTPS/TLS).
