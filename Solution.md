@@ -26,7 +26,7 @@ fi
     fi
 ```
 - `file_extension=${PCAP_FILE##*.}` extracts the extension from the file name.
-- Compares the extension with "pcap". If it doesn’t match, the script exits with an error.
+- Compares the extension with "pcap" If it doesn’t match, the script exits with an error.
 
 ```bash
 # Use tshark or similar commands for packet analysis.
