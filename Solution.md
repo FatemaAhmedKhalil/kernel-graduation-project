@@ -7,9 +7,7 @@
 
 PCAP_FILE=$1  # Capture input from the terminal.
 
-if [[ -f "$PCAP_FILE" ]]; then # Check if the input is a valid file
-    # Get the absolute path of the file's directory
-    FILE_DIR=$(dirname "$(realpath "$PCAP_FILE")") 
+if [[ -f "$PCAP_FILE" ]]; then # Check if the input is a valid file 
 
     
 else
@@ -18,8 +16,6 @@ else
 fi
 ```
 - Verifies if the provided input is a valid and existing file, If not the script exits with an error.
-- `realpath` Ensures that symbolic links are resolved, giving the absolute path.
-- `dirname` Extracts the directory part of the file path.
 
 ```bash
    # Extract the file extension and validate it
