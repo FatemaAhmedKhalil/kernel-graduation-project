@@ -10,7 +10,6 @@ PCAP_FILE=$1  # Capture input from the terminal.
 if [[ -f "$PCAP_FILE" ]]; then # Check if the input is a valid file
     # Get the absolute path of the file's directory
     FILE_DIR=$(dirname "$(realpath "$PCAP_FILE")") 
-    cd "$FILE_DIR" || exit  # Change to the file directory
 
     
 else
@@ -19,7 +18,6 @@ else
 fi
 ```
 - Verifies if the provided input is a valid and existing file, If not the script exits with an error.
-- Resolves the absolute directory path of the file and changes the working directory to it.
 - `realpath` Ensures that symbolic links are resolved, giving the absolute path.
 - `dirname` Extracts the directory part of the file path.
 
@@ -36,7 +34,7 @@ fi
 
 ```bash
 # Use tshark or similar commands for packet analysis.
-total_packets=$(tshark -r capture_file.pcap -T fields -e frame.number | wc -l)
+total_packets=$(tshark -r "$PCAP_FILE" -T fields -e frame.number | wc -l)
 ```
 - `tshark -r capture_file.pcap` Reads the capture_file.pcap File.
 - `-T fields` Makes tshark Output Only Specific Fields.
@@ -45,16 +43,16 @@ total_packets=$(tshark -r capture_file.pcap -T fields -e frame.number | wc -l)
 
 ```bash
 # Hint: Consider commands to count total packets, filter by protocols (HTTP, HTTPS/TLS).
-http_packets=$(tshark -r capture_file.pcap -Y "http" -T fields -e frame.number | wc -l)
-https_packets=$(tshark -r capture_file.pcap -Y "tls" -T fields -e frame.number | wc -l)
+http_packets=$(tshark -r "$PCAP_FILE" -Y "http" -T fields -e frame.number | wc -l)
+https_packets=$(tshark -r "$PCAP_FILE" -Y "tls" -T fields -e frame.number | wc -l)
 ```
 - `-Y "http"` Option in tshark to Apply a Display Filter to Capture Only the Packets that match the `HTTP Request` filter.
 - `-Y "tls"` Option in tshark to Apply a Display Filter to Capture Only the Packets that match the `HTTPS/TLS` filter.
 
 ```bash
 # extract IP addresses, and generate summary statistics.
-top_source_ips=$(tshark -r capture_file.pcap -T fields -e ip.src | sort | uniq -c | sort -nr | head -n 5) 
-top_dest_ips=$(tshark -r capture_file.pcap -T fields -e ip.dst | sort | uniq -c | sort -nr | head -n 5)
+top_source_ips=$(tshark -r "$PCAP_FILE" -T fields -e ip.src | sort | uniq -c | sort -nr | head -n 5) 
+top_dest_ips=$(tshark -r "$PCAP_FILE" -T fields -e ip.dst | sort | uniq -c | sort -nr | head -n 5)
 ```
 - `-e ip.src` and `-e ip.dst` Extract the Source IP Address (ip.src) and Destination IP Address (ip.dst) from each packet in the capture.
 - `sort` This Command Sorts the Output IP Addresses from The Previous Step in Ascending Order.
