@@ -4,7 +4,7 @@
 
 # Input: Path to the Wireshark PCAP file
 PCAP_FILE=$1  # Capture input from the terminal.
-if [[ -f "$PCAP_FILE" ]]; then # Check if the input is a valid file 
+if [[ -f "$PCAP_FILE" ]]; then # Check if the input is a valid file
 
     # Extract the file extension and validate it
     file_extension=${PCAP_FILE##*.}
@@ -48,12 +48,8 @@ analyze_traffic() {
     # Provide the top destination IP addresses
     echo "$top_dest_ips"
     echo ""
-    echo "----- End of Report -
-----"
+    echo "----- End of Report -----"
 }
 
 # Run the analysis function
 analyze_traffic
-
-
-
