@@ -4,7 +4,6 @@
 
 # Input: Path to the Wireshark PCAP file
 PCAP_FILE=$1  # Capture input from the terminal.
-
 if [[ -f "$PCAP_FILE" ]]; then # Check if the input is a valid file
     # Get the absolute path of the file's directory
     FILE_DIR=$(dirname "$(realpath "$PCAP_FILE")") 
@@ -16,6 +15,9 @@ if [[ -f "$PCAP_FILE" ]]; then # Check if the input is a valid file
         echo "Error: '$PCAP_FILE' is not a valid PCAP file. Please provide a file with a .pcap extension."
         exit 1
     fi
+else
+    echo "Error: '$PCAP_FILE' is not a valid file. Please provide a valid PCAP file path."
+    exit 1
 fi
 
 
