@@ -16,9 +16,6 @@ if [[ -f "$PCAP_FILE" ]]; then # Check if the input is a valid file
         echo "Error: '$PCAP_FILE' is not a valid PCAP file. Please provide a file with a .pcap extension."
         exit 1
     fi
-else
-    echo "Error: '$PCAP_FILE' is not a valid file. Please provide a valid PCAP file path."
-    exit 1
 fi
 
 
