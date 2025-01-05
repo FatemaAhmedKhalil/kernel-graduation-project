@@ -7,7 +7,6 @@ PCAP_FILE=$1  # Capture input from the terminal.
 if [[ -f "$PCAP_FILE" ]]; then # Check if the input is a valid file
     # Get the absolute path of the file's directory
     FILE_DIR=$(dirname "$(realpath "$PCAP_FILE")") 
-    cd "$FILE_DIR" || exit  # Change to the file directory
 
     # Extract the file extension and validate it
     file_extension=${PCAP_FILE##*.}
