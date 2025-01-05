@@ -3,6 +3,38 @@
 
 ### Code Breakdown
 ```bash
+#!/bin/bash
+
+PCAP_FILE=$1  # Capture input from the terminal.
+
+if [[ -f "$PCAP_FILE" ]]; then # Check if the input is a valid file
+    # Get the absolute path of the file's directory
+    FILE_DIR=$(dirname "$(realpath "$PCAP_FILE")") 
+    cd "$FILE_DIR" || exit  # Change to the file directory
+
+    
+else
+    echo "Error: '$PCAP_FILE' is not a valid file. Please provide a valid PCAP file path."
+    exit 1
+fi
+```
+- Verifies if the provided input is a valid and existing file, If not the script exits with an error.
+- Resolves the absolute directory path of the file and changes the working directory to it.
+- `realpath` Ensures that symbolic links are resolved, giving the absolute path.
+- `dirname` Extracts the directory part of the file path.
+
+```bash
+   # Extract the file extension and validate it
+    file_extension=${PCAP_FILE##*.}
+    if [[ "$file_extension" != "pcap" ]]; then
+        echo "Error: '$PCAP_FILE' is not a valid PCAP file. Please provide a file with a .pcap extension."
+        exit 1
+    fi
+```
+- `file_extension=${PCAP_FILE##*.}` extracts the extension from the file name.
+- Compares the extension with "pcap". If it doesn’t match, the script exits with an error.
+
+```bash
 # Use tshark or similar commands for packet analysis.
 total_packets=$(tshark -r capture_file.pcap -T fields -e frame.number | wc -l)
 ```
